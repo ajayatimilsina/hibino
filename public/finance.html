@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>収支管理</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
+</head>
+<body>
+  <div id="nav"></div>
+  <div class="container py-3">
+    <h4>収支管理</h4>
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+      <select id="mode" class="form-select w-auto"><option value="daily">日次（月内）</option><option value="monthly">月次（年内）</option></select>
+      <input id="month" type="month" class="form-control w-auto">
+      <input id="year" type="number" class="form-control w-auto" style="width:100px" hidden>
+      <button id="csvSummary" class="btn btn-outline-dark ms-auto">CSV: 損益</button>
+      <button id="csvEntries" class="btn btn-outline-dark">CSV: 経費明細</button>
+    </div>
+
+    <div class="row g-2 mb-3" id="cards"></div>
+    <div class="card card-body mb-3"><canvas id="chart" height="260"></canvas>
+      <div class="small text-muted mt-1"><span style="color:#198754">■</span> 売上　<span style="color:#dc3545">■</span> 支出　<span style="color:#0d6efd">●</span> 利益</div></div>
+
+    <div class="card card-body mb-3">
+      <h6>データ入力</h6>
+      <form id="entryForm" class="row g-2">
+        <div class="col-6 col-md-2"><input type="date" id="eDate" class="form-control" required></div>
+        <div class="col-6 col-md-2"><select id="eType" class="form-select"><option value="expense">経費（仕入れ等）</option><option value="labor">人件費</option><option value="other">その他</option></select></div>
+        <div class="col-6 col-md-2"><input id="eCat" class="form-control" placeholder="科目 (例: 小麦粉)" maxlength="40"></div>
+        <div class="col-6 col-md-2"><input type="number" min="0" id="eAmount" class="form-control" placeholder="金額 ¥" required></div>
+        <div class="col-8 col-md-3"><input id="eMemo" class="form-control" placeholder="メモ" maxlength="200"></div>
+        <div class="col-4 col-md-1"><button class="btn btn-danger w-100">追加</button></div>
+      </form>
+    </div>
+
+    <table class="table table-sm bg-white"><thead><tr><th>日付</th><th>種別</th><th>科目</th><th class="text-end">金額</th><th>メモ</th><th></th></tr></thead><tbody id="entries"></tbody></table>
+  </div>
+  <script type="module" src="js/finance.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "hihinoji-qr-pos",
+  "version": "1.0.0",
+  "description": "QR table ordering + KDS + POS for a Japanese-Indian restaurant",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "reset-db": "node -e \"require('fs').rmSync('data/db.json',{force:true})\""
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "iconv-lite": "^0.6.3",
+    "ws": "^8.18.0"
+  }
+}

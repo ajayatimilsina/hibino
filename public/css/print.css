@@ -1,0 +1,42 @@
+/* Print layout: the page body is hidden, only #printArea is printed. */
+#printArea { display: none; }
+
+@media print {
+  body > *:not(#printArea) { display: none !important; }
+  #printArea { display: block !important; }
+  html, body { margin: 0; padding: 0; background: #fff !important; color: #000 !important; }
+
+  /* Thermal paper: width comes from --paper-w (72mm printable on 80mm, 48mm on 58mm). */
+  .ticket, .receipt {
+    width: var(--paper-w, 72mm);
+    margin: 0 auto;
+    padding: 2mm 1mm;
+    font-family: "MS Gothic", "Noto Sans JP", monospace;
+    font-size: 11pt;
+    line-height: 1.35;
+    color: #000;
+    box-sizing: border-box;
+  }
+  .ticket { page-break-after: always; break-after: page; break-inside: avoid; }
+  .ticket:last-child { page-break-after: auto; break-after: auto; }
+  .ticket .t-head { text-align: center; font-size: 15pt; font-weight: 700; }
+  .ticket .t-time { text-align: center; font-size: 10pt; border-bottom: 1px dashed #000; padding-bottom: 1mm; margin-bottom: 2mm; }
+  .ticket .t-name { font-size: 17pt; font-weight: 700; }
+  .ticket .t-opt { font-size: 12pt; padding-left: 3mm; }
+  .ticket .t-qty { font-size: 17pt; font-weight: 700; margin-top: 1mm; }
+  .ticket .t-note { border-top: 1px dashed #000; margin-top: 2mm; padding-top: 1mm; font-size: 11pt; }
+
+  .receipt .r-title { text-align: center; font-size: 15pt; font-weight: 700; }
+  .receipt .r-center { text-align: center; }
+  .receipt .r-row { display: flex; justify-content: space-between; gap: 2mm; }
+  .receipt .r-opt { padding-left: 3mm; font-size: 10pt; }
+  .receipt hr { border: 0; border-top: 1px dashed #000; margin: 2mm 0; }
+  .receipt .r-total { font-size: 14pt; font-weight: 700; }
+  .receipt .r-addressee { font-size: 13pt; border-bottom: 1px solid #000; margin: 2mm 0; padding-bottom: 1mm; }
+
+  /* Daily report: normal A4 */
+  .report { width: 100%; font-size: 12pt; font-family: "Noto Sans JP", sans-serif; }
+  .report table { width: 100%; border-collapse: collapse; }
+  .report th, .report td { border: 1px solid #000; padding: 2mm 3mm; }
+  .report td.num { text-align: right; }
+}

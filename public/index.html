@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ご注文</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
+</head>
+<body style="padding-bottom:80px">
+  <div id="pickupBanner" class="pickup-banner" hidden>
+    <div>🍛 お料理ができました。<br>カウンターまで取りに来てください。</div>
+    <button id="pickupOk" class="btn btn-light btn-lg mt-3">受け取りました</button>
+  </div>
+  <div id="thanksBanner" class="thanks-banner" hidden>
+    ありがとうございました
+    <div><button id="thanksOk" class="btn btn-light mt-2">閉じる</button></div>
+  </div>
+  <div id="announce" class="announce-toast" hidden></div>
+
+  <header class="cust-header p-2 d-flex align-items-center justify-content-between">
+    <div><strong id="shopName">ご注文</strong> <span class="badge bg-light text-dark" id="tableLabel"></span></div>
+    <button id="callBtn" class="btn btn-warning btn-sm fw-bold">🔔 店員を呼ぶ</button>
+  </header>
+
+  <main class="container" style="max-width:720px">
+    <div id="noTable" class="alert alert-danger mt-3" hidden>テーブル番号がありません。テーブルのQRコードを読み取ってください。</div>
+
+    <ul id="catTabs" class="nav cat-tabs"></ul>
+    <div id="menuList" class="row g-2 mt-1"></div>
+
+    <section id="cart" class="mt-4">
+      <h5>ご注文内容</h5>
+      <div id="cartList" class="list-group mb-2"></div>
+      <label class="form-label small mb-1" for="note">特別なご要望（アレルギー・辛さなど）</label>
+      <textarea id="note" class="form-control mb-2" rows="2" maxlength="200"></textarea>
+      <div class="d-flex justify-content-between align-items-center">
+        <strong>合計 <span id="cartTotal" class="yen">¥0</span></strong>
+        <button id="submitBtn" class="btn btn-danger btn-lg" disabled>注文する</button>
+      </div>
+    </section>
+
+    <section class="mt-4">
+      <h5>ご注文状況 <small class="text-muted">受付 → 調理中 → 完成 → 提供済み</small></h5>
+      <div id="orders"></div>
+      <div class="text-end fw-bold">お会計見込み: <span id="tableTotal" class="yen">¥0</span></div>
+    </section>
+
+    <!-- End of page: receipt request -->
+    <section class="mt-4 mb-5 card card-body">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="needReceipt">
+        <label class="form-check-label fw-bold" for="needReceipt">領収書が必要ですか？</label>
+      </div>
+      <div id="receiptNameBox" class="mt-2" hidden>
+        <label class="form-label small" for="receiptName">宛名</label>
+        <input id="receiptName" class="form-control" maxlength="60" placeholder="例：株式会社〇〇 / 山田太郎">
+      </div>
+    </section>
+  </main>
+
+  <div class="cart-bar p-2 d-flex justify-content-between align-items-center">
+    <span>🛒 <span id="cartCount">0</span>点 / <span id="barTotal" class="yen">¥0</span></span>
+    <a href="#cart" class="btn btn-warning btn-sm">カートを見る</a>
+  </div>
+
+  <div class="modal fade" id="itemModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title" id="mName"></h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div id="mOptions"></div>
+        <div class="d-flex align-items-center gap-3 mt-3">
+          <button class="btn btn-outline-secondary" id="mMinus">−</button>
+          <strong id="mQty" class="fs-4">1</strong>
+          <button class="btn btn-outline-secondary" id="mPlus">＋</button>
+        </div>
+      </div>
+      <div class="modal-footer"><button id="mAdd" class="btn btn-danger w-100">カートに追加</button></div>
+    </div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/customer.js"></script>
+</body>
+</html>

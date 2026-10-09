@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>テーブルQRコード</title>
+  <style>
+    body { font-family: sans-serif; margin: 1rem; }
+    .grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .qr { border: 1px solid #000; padding: 12px; text-align: center; width: 200px; page-break-inside: avoid; }
+    .qr h2 { margin: 0 0 8px; }
+    @media print { .ctl { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="ctl">
+    <label>店舗URL (例: https://order.example.com): <input id="base" size="40"></label>
+    <label>テーブル数: <input id="count" type="number" value="10" min="1" max="99" style="width:60px"></label>
+    <button id="go">生成</button> <button onclick="print()">印刷</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    document.getElementById('base').value = location.origin;
+    function build() {
+      const base = document.getElementById('base').value.replace(/\/$/, '');
+      const n = Number(document.getElementById('count').value);
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= n; i++) {
+        const d = document.createElement('div');
+        d.className = 'qr';
+        d.innerHTML = `<h2>テーブル ${i}</h2><div class="code"></div><div style="font-size:11px;margin-top:6px">スマホで読み取ってご注文</div>`;
+        grid.appendChild(d);
+        new QRCode(d.querySelector('.code'), { text: `${base}/index.html?table=${i}`, width: 176, height: 176 });
+      }
+    }
+    document.getElementById('go').onclick = build;
+    build();
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>レジ (POS)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
+  <link href="css/print.css" rel="stylesheet">
+</head>
+<body>
+  <div id="nav"></div>
+  <div id="calls" class="px-3 pt-2"></div>
+  <div class="container-fluid py-2">
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabTables">テーブル</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabDaily">日次集計</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabSales">会計履歴</button></li>
+      </ul>
+      <span class="ms-auto d-flex gap-2">
+        <select id="printMode" class="form-select form-select-sm w-auto"><option value="browser">ブラウザ印刷</option><option value="escpos">ESC/POS</option></select>
+        <select id="paper" class="form-select form-select-sm w-auto"><option value="80">80mm</option><option value="58">58mm</option></select>
+      </span>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="tabTables">
+        <div class="row g-3">
+          <div class="col-lg-5"><div id="tables" class="row g-2"></div></div>
+          <div class="col-lg-7"><div id="detail" class="card card-body text-muted">テーブルを選択してください</div></div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tabDaily">
+        <div class="d-flex gap-2 mb-3">
+          <input type="date" id="dailyDate" class="form-control w-auto">
+          <button id="dailyLoad" class="btn btn-primary">表示</button>
+          <button id="dailyPrint" class="btn btn-outline-dark">🖨 印刷</button>
+        </div>
+        <div id="dailyBody"></div>
+      </div>
+
+      <div class="tab-pane fade" id="tabSales">
+        <div class="d-flex gap-2 mb-3">
+          <input type="date" id="salesDate" class="form-control w-auto">
+          <button id="salesLoad" class="btn btn-primary">表示</button>
+        </div>
+        <div id="salesBody"></div>
+      </div>
+    </div>
+  </div>
+  <div id="printArea"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/pos.js"></script>
+</body>
+</html>
